@@ -1,0 +1,39 @@
+<meta charset='utf-8'>
+<style>
+#question{
+margin-bottom:5px;
+}
+#answers_place div{
+float:left;
+margin-left:5px;
+width:30px;
+height:30px;
+background-color:black;
+}
+#answers_place{
+overflow: hidden;
+margin-bottom:10px;
+clear:both;
+color:white;
+}
+#result,#error_count span{
+color:red;
+}
+</style>
+<script src='main.js'></script>
+<div id='question'>
+</div>
+<div id='answers_place'>
+</div>
+<div>
+Введите букву и нажмите ответить<br>
+<input type='char' id='letter'>
+<input type='submit' value='ответить' id='submit_letter'>
+</div>
+<div id='errors'>
+</div>
+<div id='error_count'>
+У вас есть <span></span> возможностей ошибится
+</div>
+<div id='result'>
+</div>
