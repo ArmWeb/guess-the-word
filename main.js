@@ -25,22 +25,32 @@ function GameLogic() {
 	var question = questions_array[random_question_key][Object.keys(questions_array[random_question_key])];
 	showQuestion(question);
 	showBoxes(answer.toString().length);
-	document.getElementById('submit_letter').addEventListener('click',function(letter){
+	var letter_submit_form = document.getElementById('letter_submit_form');
+	var submitListener = function(){
 		var letter = getLetter();
 		if(letter!=false){
 			var letter_position = checkLetterExist(letter,answer.toString());
 			if(letter_position>-1){
-				openHiddenLetter(letter,answer.toString());
+				var finish = openHiddenLetter(letter,answer.toString());
+				if(finish=="finish"){
+					startingPointsToLoose = 10;
+					letter_submit_form.removeEventListener('submit',submitListener,false);
+					GameLogic();
+				}
 			}
 			else{
 				startingPointsToLoose--;
 				document.getElementById('error_count').getElementsByTagName('span')[0].innerHTML = startingPointsToLoose;
 				if(startingPointsToLoose == 0){
-					document.getElementById('error_count').innerHTML = "Вы проиграли";
+					startingPointsToLoose = 10;
+					document.getElementById('result').innerHTML = "Вы проиграли. Попробуйте угадать это слово";
+					letter_submit_form.removeEventListener('submit',submitListener,false);
+					GameLogic();
 				}
 			}
 		}
-	})
+	}
+	letter_submit_form.addEventListener('submit',submitListener,false);
  });
 }
 
@@ -57,7 +67,8 @@ function openHiddenLetter(letter,answer){
 		}
 	}
 	if(allLettersFilled == true){
-		document.getElementById('result').innerHTML = "Вы выиграли";
+		document.getElementById('result').innerHTML = "Вы выиграли. Теперь угадайте это слово";
+		return "finish";
 	}
 }
 
@@ -80,6 +91,7 @@ function showQuestion(question){
 }
 
 function showBoxes(str_length){
+	document.getElementById('answers_place').innerHTML = "";
 	for(var i = 0;i<str_length;i++){
 		var d = document.createElement('div');
 		document.getElementById('answers_place').appendChild(d);
@@ -87,7 +99,7 @@ function showBoxes(str_length){
 }
 
 function getLetter(){
-	letter = document.getElementById('letter').value;
+	var letter = document.getElementById('letter').value;
 	document.getElementById('letter').value = "";
 	if(letter.length==1){
 		document.getElementById('errors').innerHTML = "";	
