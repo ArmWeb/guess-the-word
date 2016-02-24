@@ -11,9 +11,9 @@
 	"questions":{
 		"array":
 		[
-		{"1":"самая прекрасная девушка в мире1"},
-		{"12":"самая прекрасная девушка в мире12"},
-		{"123":"самая прекрасная девушка в мире123"}
+		{"h1":"Which is the largest heading element in html?"},
+		{"br":"What is the correct HTML element for inserting a line break?"},
+		{"ol":"How can you make a numbered list?"}
 		]
 	}
 }
